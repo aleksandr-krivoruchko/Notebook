@@ -1,2 +1,8 @@
-
-
+.qqq {
+  color: green;
+  cursor: pointer;
+}
+.www {
+  background-color: darkgray;
+  text-decoration: line-through;
+}

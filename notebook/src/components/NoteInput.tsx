@@ -1,35 +1,47 @@
-import React from 'react';
-import {Box, TextField, IconButton, styled} from '@mui/material';
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import React from "react";
+import { Box, TextField, IconButton, styled } from "@mui/material";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 const StyleBox = styled(Box)({
-	display: "flex",
-	justifyContent: "center",
-	alignItems: 'center'
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
 
-})
-
-const NoteInput: React.FC = () => {
-const [note, setNote] = React.useState('');
-
-const handleClick = () => {
-		if (note === '') {
-		alert('add the note')
-	} else {alert(note)}
-setNote('');
+interface NoteInputProps {
+  onAdd: (title: string) => void;
 }
+
+const NoteInput: React.FC<NoteInputProps> = ({ onAdd }) => {
+  const [inputValue, setInputValue] = React.useState("");
+
+  const createNewNote = React.useCallback(() => {
+    if (inputValue) {
+      onAdd(inputValue);
+    }
+    setInputValue("");
+  }, [inputValue]);
 
   return (
-    <StyleBox  p={2} >
-      <TextField id="outlined-basic" label="I need ..." size='small' variant="outlined" value={note}
-  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-    setNote(event.target.value);
-  }}/>
-  <IconButton color="primary" onClick={handleClick}>
-  <AddBoxIcon fontSize='large'/>
-</IconButton>
+    <StyleBox marginBottom={2}>
+      <TextField
+        id="outlined-basic"
+        label="I need ..."
+        fullWidth={true}
+        size="small"
+        variant="outlined"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") createNewNote();
+        }}
+      />
+
+      <IconButton color="primary" onClick={createNewNote}>
+        <AddBoxIcon fontSize="large" />
+      </IconButton>
     </StyleBox>
   );
-}
+};
 
 export default NoteInput;

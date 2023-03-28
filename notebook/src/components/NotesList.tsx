@@ -1,12 +1,23 @@
 import React from 'react';
 import List from '@mui/material/List';
 import  NotesListItem  from "./NotesListItem";
+import { useNoteStore } from "../stores/useNoteStore";
+import { Note } from "../stores/useNoteStore";
 
-const NotesList: React.FC = () => {
+interface NotesListProps {
+	notes: Note[]
+}
+
+const NotesList: React.FC<NotesListProps> = ({notes}) => {
+
+// const notes = useNoteStore(state=>state.notes);
+console.log(notes);
+
   return (
-    <List sx={{ maxWidth: '100%'}}>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9 ,10].map((value) => <NotesListItem value={value}/>)}
-    </List>
+    <List sx={{ maxWidth: '100%'}}>{notes.map((note) => {
+		console.log(note)
+		
+	 })}</List>
   );
 }
 

@@ -1,8 +1,18 @@
-.qqq {
-  color: green;
+body {
+  background-color: rgba(245, 180, 216);
+}
+li {
   cursor: pointer;
 }
-.www {
-  background-color: darkgray;
+.note {
+  font-style: "italic";
+  color: rgb(29, 4, 56);
+  cursor: pointer;
+}
+.completed-note {
   text-decoration: line-through;
+}
+.qqq {
+  background-color: #dddddd;
+  overflow: hidden;
 }

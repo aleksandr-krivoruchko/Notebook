@@ -1,22 +1,13 @@
 import React from "react";
 import "./App.css";
 import { Container, Box } from "@mui/system";
-import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
-import Paper from "@mui/material/Paper";
+import { IconButton, Tooltip, Typography, List, Paper } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import NoteInput from "./components/NoteInput";
 import NotesListItem from "./components/NotesListItem";
 import NoOneNote from "./components/NoOneNote";
 import { useNoteStore } from "./stores/useNoteStore";
 import pic from "./img/qqq.png";
-
-const styles = {
-  container: {
-    backgroundImage: `url(${pic})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-};
 
 const App: React.FC = () => {
   const [notes, addNote, updateNote, deleteNote] = useNoteStore((state) => [
@@ -34,8 +25,15 @@ const App: React.FC = () => {
         backgroundSize: "cover",
       }}>
       <Container maxWidth="sm">
-        <Box sx={{ bgcolor: "#ecb2db", opacity: "0.7", height: "100vh" }} p={5}>
-          <Typography variant="h3" align="center" marginBottom={5}>
+        <Box
+          sx={{ bgcolor: "#fff", opacity: "0.9", height: "100vh" }}
+          p={5}
+          textAlign="center">
+          <Typography
+            variant="h3"
+            align="center"
+            marginBottom={5}
+            sx={{ color: "#ce0875" }}>
             My notes
           </Typography>
 
@@ -49,12 +47,26 @@ const App: React.FC = () => {
                 key={id}
                 id={id}
                 title={title}
-                onDone={deleteNote}
                 onEdit={updateNote}
                 onRemove={deleteNote}
               />
             ))}
           </List>
+          {notes.length > 3 && (
+            <Tooltip
+              title="Delete all notes"
+              color="secondary"
+              placement="right-end">
+              <IconButton onClick={() => notes.map((n) => deleteNote(n.id))}>
+                <DeleteIcon
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
       </Container>
     </Paper>

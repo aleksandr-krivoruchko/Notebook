@@ -16,7 +16,7 @@ const NoteInput: React.FC<NoteInputProps> = ({ onAdd }) => {
   const [inputValue, setInputValue] = React.useState("");
 
   const createNewNote = React.useCallback(() => {
-    if (inputValue) {
+    if (inputValue.trim()) {
       onAdd(inputValue);
     }
     setInputValue("");
@@ -27,8 +27,10 @@ const NoteInput: React.FC<NoteInputProps> = ({ onAdd }) => {
       <TextField
         id="outlined-basic"
         label="I need ..."
+        autoFocus={true}
         fullWidth={true}
         size="small"
+        color="secondary"
         variant="outlined"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
@@ -37,7 +39,7 @@ const NoteInput: React.FC<NoteInputProps> = ({ onAdd }) => {
         }}
       />
 
-      <IconButton color="primary" onClick={createNewNote}>
+      <IconButton color="secondary" onClick={createNewNote}>
         <AddBoxIcon fontSize="large" />
       </IconButton>
     </StyleBox>

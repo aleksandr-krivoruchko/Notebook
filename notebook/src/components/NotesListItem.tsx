@@ -8,14 +8,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-interface NotesListItem {
+export interface INotesListItem {
   id: string;
   title: string;
   onEdit: (id: string, title: string) => void;
   onRemove: (id: string) => void;
 }
 
-const NotesListItem: React.FC<NotesListItem> = ({
+const NotesListItem: React.FC<INotesListItem> = ({
   id,
   title,
   onEdit,
@@ -28,12 +28,12 @@ const NotesListItem: React.FC<NotesListItem> = ({
     <ListItem
       key={id}
       sx={{
-        borderBottom: "1px solid #bbb",
+        borderBottom: "1px solid #f55cba",
         marginBottom: "20px",
       }}
       onClick={(e) => {
         e.currentTarget.classList.toggle("qqq");
-        const q = e.currentTarget
+        e.currentTarget
           .querySelector(".note")
           ?.classList.toggle("completed-note");
       }}
@@ -42,8 +42,10 @@ const NotesListItem: React.FC<NotesListItem> = ({
           {isEditMode ? (
             <ListItemButton
               onClick={() => {
-                onEdit(id, value);
-                setIsEditMode(false);
+                if (value) {
+                  onEdit(id, value);
+                  setIsEditMode(false);
+                }
               }}>
               <CheckBoxIcon color="success" />
             </ListItemButton>

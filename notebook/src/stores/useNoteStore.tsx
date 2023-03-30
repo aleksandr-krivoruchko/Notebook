@@ -3,9 +3,9 @@ import { generateId } from "../helpers/createID";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface Note {
-  id?: string;
-  title?: string;
-  createAt?: number;
+  id: string;
+  title: string;
+  createAt: number;
 }
 
 interface NoteStore {
@@ -27,7 +27,6 @@ export const useNoteStore = create(
           title,
           createAt: Date.now(),
         };
-
         set({ notes: [newNote, ...notes] });
       },
 
